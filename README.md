@@ -6,12 +6,13 @@ This project is being developed incrementally as a seven-day learning project us
 
 ## Project status
 
-Day 1 is complete.
+Days 1 and 2 are complete.
 
 - SHA-256 file hashing is implemented.
 - File paths are validated before hashing.
-- Automated JUnit tests are included.
-- All four current tests pass.
+- Core OOP models represent users, monitored folders, file baselines, and security events.
+- Enums define event types, severity levels, and review statuses.
+- Automated JUnit tests cover hashing and model behavior.
 - The JavaFX interface, database, monitoring, alerts, and reports are planned but are not operational yet.
 
 ## Current features
@@ -19,6 +20,10 @@ Day 1 is complete.
 - Calculate the SHA-256 hash of a file.
 - Process files in buffered blocks instead of loading an entire file into memory.
 - Reject null, missing, non-regular, and unreadable files.
+- Activate and deactivate folder monitoring.
+- Store and validate trusted SHA-256 baseline information.
+- Record file-created, file-modified, and file-deleted security events.
+- Move security events through open, acknowledged, and resolved states.
 - Verify behavior with automated tests.
 
 ## Planned features
@@ -58,16 +63,27 @@ mvn -version
 
 ## Project structure
 
-The current Day 1 files are:
+The current Day 1 and Day 2 files are:
 
 ```text
 CyberCheck/
 |-- pom.xml
 |-- README.md
 `-- src/
-    |-- main/java/com/fileguard/service/
-    |   `-- HashService.java
+    |-- main/java/com/fileguard/
+    |   |-- model/
+    |   |   |-- EventStatus.java
+    |   |   |-- EventType.java
+    |   |   |-- FileBaseline.java
+    |   |   |-- MonitoredFolder.java
+    |   |   |-- SecurityEvent.java
+    |   |   |-- Severity.java
+    |   |   `-- User.java
+    |   `-- service/
+    |       `-- HashService.java
     `-- test/java/com/fileguard/
+        |-- model/
+        |   `-- ModelClassesTest.java
         `-- HashServiceTest.java
 ```
 
@@ -93,14 +109,20 @@ Run only the hash-service tests:
 mvn "-Dtest=HashServiceTest" test
 ```
 
+Run only the model tests:
+
+```powershell
+mvn "-Dtest=ModelClassesTest" test
+```
+
 A successful test run should report:
 
 ```text
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
-The messages about missing `src/main/resources` and `src/test/resources` directories are harmless during Day 1 because those resources have not been added yet.
+The messages about missing `src/main/resources` and `src/test/resources` directories are harmless at this stage because those resources have not been added yet.
 
 ## How SHA-256 checking works
 
@@ -116,7 +138,7 @@ SHA-256 identifies changes; it does not determine whether a file is malicious.
 | Day | Goal | Status |
 | --- | --- | --- |
 | 1 | Implement and test SHA-256 hashing | Complete |
-| 2 | Create the core model classes | Planned |
+| 2 | Create the core model classes | Complete |
 | 3 | Build baseline creation and comparison | Planned |
 | 4 | Monitor folders and detect file changes | Planned |
 | 5 | Store folders, baselines, and events in SQLite | Planned |

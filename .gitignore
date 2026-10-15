@@ -1,0 +1,17 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA project settings
+.idea/
+*.iml
+
+# Visual Studio Code settings
+.vscode/
+
+# Local database and generated reports
+data/*.db
+reports/generated-reports/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
