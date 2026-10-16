@@ -6,7 +6,7 @@ This project is being developed incrementally as a seven-day learning project us
 
 ## Project status
 
-Days 1 and 2 are complete.
+Days 1, 2, and 3 are complete.
 
 - SHA-256 file hashing is implemented.
 - File paths are validated before hashing.
@@ -22,6 +22,8 @@ Days 1 and 2 are complete.
 - Reject null, missing, non-regular, and unreadable files.
 - Activate and deactivate folder monitoring.
 - Store and validate trusted SHA-256 baseline information.
+- Create baselines for individual files or complete folders.
+- Detect files that were modified or deleted after baselining.
 - Record file-created, file-modified, and file-deleted security events.
 - Move security events through open, acknowledged, and resolved states.
 - Verify behavior with automated tests.
@@ -63,7 +65,7 @@ mvn -version
 
 ## Project structure
 
-The current Day 1 and Day 2 files are:
+The current Day 1, Day 2, and Day 3 files are:
 
 ```text
 CyberCheck/
@@ -80,10 +82,12 @@ CyberCheck/
     |   |   |-- Severity.java
     |   |   `-- User.java
     |   `-- service/
+    |       |-- BaselineService.java
     |       `-- HashService.java
     `-- test/java/com/fileguard/
         |-- model/
         |   `-- ModelClassesTest.java
+        |-- BaselineServiceTest.java
         `-- HashServiceTest.java
 ```
 
@@ -115,10 +119,16 @@ Run only the model tests:
 mvn "-Dtest=ModelClassesTest" test
 ```
 
+Run only the baseline-service tests:
+
+```powershell
+mvn "-Dtest=BaselineServiceTest" test
+```
+
 A successful test run should report:
 
 ```text
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 17, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
@@ -139,7 +149,7 @@ SHA-256 identifies changes; it does not determine whether a file is malicious.
 | --- | --- | --- |
 | 1 | Implement and test SHA-256 hashing | Complete |
 | 2 | Create the core model classes | Complete |
-| 3 | Build baseline creation and comparison | Planned |
+| 3 | Build baseline creation and comparison | Complete |
 | 4 | Monitor folders and detect file changes | Planned |
 | 5 | Store folders, baselines, and events in SQLite | Planned |
 | 6 | Build the JavaFX dashboard and alerts | Planned |
