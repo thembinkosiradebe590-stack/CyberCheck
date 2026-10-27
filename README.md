@@ -128,7 +128,7 @@ mvn "-Dtest=BaselineServiceTest" test
 A successful test run should report:
 
 ```text
-Tests run: 23, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0
 ```
 
 The messages about missing `src/main/resources` and `src/test/resources` directories are harmless at this stage because those resources have not been added yet.
@@ -150,7 +150,7 @@ SHA-256 identifies changes; it does not determine whether a file is malicious.
 | 2 | Create the core model classes | Complete |
 | 3 | Build baseline creation and comparison | Complete |
 | 4 | Monitor folders and detect file changes | Complete |
-| 5 | Store folders, baselines, and events in SQLite | Planned |
+| 5 | Store folders, baselines, and events in SQLite | Complete |
 | 6 | Build the JavaFX dashboard and alerts | Planned |
 | 7 | Generate reports, test the application, and document it | Planned |
 
