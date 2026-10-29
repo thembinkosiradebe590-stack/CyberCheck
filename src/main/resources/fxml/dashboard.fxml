@@ -19,6 +19,7 @@
     <top>
         <VBox spacing="4.0"
               styleClass="header">
+
             <padding>
                 <Insets top="20.0"
                         right="25.0"
@@ -36,6 +37,7 @@
 
     <center>
         <VBox spacing="18.0">
+
             <padding>
                 <Insets top="22.0"
                         right="25.0"
@@ -44,6 +46,7 @@
             </padding>
 
             <HBox spacing="15.0">
+
                 <VBox spacing="8.0"
                       styleClass="metric-card"
                       HBox.hgrow="ALWAYS">
@@ -93,6 +96,7 @@
                        styleClass="folder-path"/>
 
                 <HBox spacing="10.0">
+
                     <Button text="Select Folder"
                             onAction="#handleSelectFolder"
                             styleClass="primary-button"/>
@@ -107,11 +111,17 @@
                   styleClass="content-card"
                   VBox.vgrow="ALWAYS">
 
-                <HBox alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT"
+                      spacing="10.0">
+
                     <Label text="Recent Security Alerts"
                            styleClass="section-title"/>
 
                     <Region HBox.hgrow="ALWAYS"/>
+
+                    <Button text="Export Report"
+                            onAction="#handleExportReport"
+                            styleClass="primary-button"/>
 
                     <Button text="Clear Alerts"
                             onAction="#handleClearAlerts"
@@ -127,6 +137,7 @@
 
     <bottom>
         <HBox styleClass="status-bar">
+
             <padding>
                 <Insets top="12.0"
                         right="25.0"

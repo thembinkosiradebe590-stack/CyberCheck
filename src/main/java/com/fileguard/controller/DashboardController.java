@@ -1,6 +1,7 @@
 package com.fileguard.controller;
 
 import com.fileguard.service.HashService;
+import com.fileguard.service.ReportService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -23,8 +25,15 @@ public class DashboardController {
     private static final DateTimeFormatter TIME_FORMAT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private final HashService hashService = new HashService();
-    private final Map<Path, String> baselineHashes = new LinkedHashMap<>();
+    private final HashService hashService =
+            new HashService();
+
+    private final ReportService reportService =
+            new ReportService();
+
+    private final Map<Path, String> baselineHashes =
+            new LinkedHashMap<>();
+
     private final ObservableList<String> alerts =
             FXCollections.observableArrayList();
 
@@ -55,11 +64,17 @@ public class DashboardController {
         fileCountLabel.setText("0");
         alertCountLabel.setText("0");
         lastScanLabel.setText("Never");
-        statusLabel.setText("Select a folder to begin monitoring.");
+
+        statusLabel.setText(
+                "Select a folder to begin monitoring."
+        );
 
         alertsListView.setItems(alerts);
+
         alertsListView.setPlaceholder(
-                new Label("No security alerts have been detected.")
+                new Label(
+                        "No security alerts have been detected."
+                )
         );
     }
 
@@ -69,14 +84,17 @@ public class DashboardController {
         chooser.setTitle("Select a folder to monitor");
 
         File chosenFolder = chooser.showDialog(
-                selectedFolderLabel.getScene().getWindow()
+                selectedFolderLabel
+                        .getScene()
+                        .getWindow()
         );
 
         if (chosenFolder == null) {
             return;
         }
 
-        selectedFolder = chosenFolder.toPath()
+        selectedFolder = chosenFolder
+                .toPath()
                 .toAbsolutePath()
                 .normalize();
 
@@ -84,26 +102,37 @@ public class DashboardController {
         alerts.clear();
         baselineCreated = false;
 
-        selectedFolderLabel.setText(selectedFolder.toString());
+        selectedFolderLabel.setText(
+                selectedFolder.toString()
+        );
+
         fileCountLabel.setText("0");
         alertCountLabel.setText("0");
         lastScanLabel.setText("Never");
+
         statusLabel.setText(
-                "Folder selected. Click Scan Folder to create a baseline."
+                "Folder selected. Click Scan Folder "
+                        + "to create a baseline."
         );
     }
 
     @FXML
     private void handleScanFolder() {
         if (selectedFolder == null) {
-            statusLabel.setText("Please select a folder first.");
+            statusLabel.setText(
+                    "Please select a folder first."
+            );
             return;
         }
 
         try {
-            Map<Path, String> currentHashes = scanFolder(selectedFolder);
+            Map<Path, String> currentHashes =
+                    scanFolder(selectedFolder);
+
             fileCountLabel.setText(
-                    Integer.toString(currentHashes.size())
+                    Integer.toString(
+                            currentHashes.size()
+                    )
             );
 
             if (!baselineCreated) {
@@ -117,14 +146,16 @@ public class DashboardController {
                                 + " files."
                 );
             } else {
-                int detectedChanges = detectChanges(currentHashes);
+                int detectedChanges =
+                        detectChanges(currentHashes);
 
                 baselineHashes.clear();
                 baselineHashes.putAll(currentHashes);
 
                 if (detectedChanges == 0) {
                     statusLabel.setText(
-                            "Scan complete. No file changes detected."
+                            "Scan complete. "
+                                    + "No file changes detected."
                     );
                 } else {
                     statusLabel.setText(
@@ -138,13 +169,16 @@ public class DashboardController {
             alertCountLabel.setText(
                     Integer.toString(alerts.size())
             );
+
             lastScanLabel.setText(
-                    LocalDateTime.now().format(TIME_FORMAT)
+                    LocalDateTime.now()
+                            .format(TIME_FORMAT)
             );
 
         } catch (IOException exception) {
             statusLabel.setText(
-                    "Scan failed: " + exception.getMessage()
+                    "Scan failed: "
+                            + exception.getMessage()
             );
         }
     }
@@ -153,13 +187,38 @@ public class DashboardController {
     private void handleClearAlerts() {
         alerts.clear();
         alertCountLabel.setText("0");
-        statusLabel.setText("Security alerts cleared.");
+
+        statusLabel.setText(
+                "Security alerts cleared."
+        );
+    }
+
+    @FXML
+    private void handleExportReport() {
+        try {
+            Path reportFile =
+                    reportService.generateAlertReport(
+                            List.copyOf(alerts)
+                    );
+
+            statusLabel.setText(
+                    "Report saved: "
+                            + reportFile.getFileName()
+            );
+
+        } catch (IOException exception) {
+            statusLabel.setText(
+                    "Report failed: "
+                            + exception.getMessage()
+            );
+        }
     }
 
     private Map<Path, String> scanFolder(Path folder)
             throws IOException {
 
-        Map<Path, String> hashes = new LinkedHashMap<>();
+        Map<Path, String> hashes =
+                new LinkedHashMap<>();
 
         try (Stream<Path> paths = Files.walk(folder)) {
             for (Path file : paths
@@ -172,7 +231,9 @@ public class DashboardController {
 
                 hashes.put(
                         normalizedFile,
-                        hashService.calculateSHA256(normalizedFile)
+                        hashService.calculateSHA256(
+                                normalizedFile
+                        )
                 );
             }
         }
@@ -180,7 +241,9 @@ public class DashboardController {
         return hashes;
     }
 
-    private int detectChanges(Map<Path, String> currentHashes) {
+    private int detectChanges(
+            Map<Path, String> currentHashes
+    ) {
         int changeCount = 0;
 
         for (Map.Entry<Path, String> entry
@@ -192,15 +255,27 @@ public class DashboardController {
             if (!baselineHashes.containsKey(file)) {
                 addAlert("FILE CREATED", file);
                 changeCount++;
-            } else if (!baselineHashes.get(file).equals(currentHash)) {
+
+            } else if (!baselineHashes
+                    .get(file)
+                    .equals(currentHash)) {
+
                 addAlert("FILE MODIFIED", file);
                 changeCount++;
             }
         }
 
-        for (Path originalFile : baselineHashes.keySet()) {
-            if (!currentHashes.containsKey(originalFile)) {
-                addAlert("FILE DELETED", originalFile);
+        for (Path originalFile
+                : baselineHashes.keySet()) {
+
+            if (!currentHashes
+                    .containsKey(originalFile)) {
+
+                addAlert(
+                        "FILE DELETED",
+                        originalFile
+                );
+
                 changeCount++;
             }
         }
@@ -208,12 +283,20 @@ public class DashboardController {
         return changeCount;
     }
 
-    private void addAlert(String eventType, Path file) {
-        String time = LocalDateTime.now().format(TIME_FORMAT);
+    private void addAlert(
+            String eventType,
+            Path file
+    ) {
+        String time = LocalDateTime.now()
+                .format(TIME_FORMAT);
 
         alerts.add(
                 0,
-                time + " | " + eventType + " | " + file
+                time
+                        + " | "
+                        + eventType
+                        + " | "
+                        + file
         );
     }
 }
