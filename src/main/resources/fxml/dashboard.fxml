@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.fileguard.controller.DashboardController"
+            prefWidth="1000.0"
+            prefHeight="650.0"
+            styleClass="root-pane">
+
+    <top>
+        <VBox spacing="4.0"
+              styleClass="header">
+            <padding>
+                <Insets top="20.0"
+                        right="25.0"
+                        bottom="20.0"
+                        left="25.0"/>
+            </padding>
+
+            <Label text="FileGuard"
+                   styleClass="application-title"/>
+
+            <Label text="File Integrity Monitoring Dashboard"
+                   styleClass="application-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="18.0">
+            <padding>
+                <Insets top="22.0"
+                        right="25.0"
+                        bottom="22.0"
+                        left="25.0"/>
+            </padding>
+
+            <HBox spacing="15.0">
+                <VBox spacing="8.0"
+                      styleClass="metric-card"
+                      HBox.hgrow="ALWAYS">
+
+                    <Label text="Files Monitored"
+                           styleClass="metric-title"/>
+
+                    <Label fx:id="fileCountLabel"
+                           text="0"
+                           styleClass="metric-value"/>
+                </VBox>
+
+                <VBox spacing="8.0"
+                      styleClass="metric-card, alert-card"
+                      HBox.hgrow="ALWAYS">
+
+                    <Label text="Security Alerts"
+                           styleClass="metric-title"/>
+
+                    <Label fx:id="alertCountLabel"
+                           text="0"
+                           styleClass="metric-value"/>
+                </VBox>
+
+                <VBox spacing="8.0"
+                      styleClass="metric-card"
+                      HBox.hgrow="ALWAYS">
+
+                    <Label text="Last Scan"
+                           styleClass="metric-title"/>
+
+                    <Label fx:id="lastScanLabel"
+                           text="Never"
+                           styleClass="metric-time"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="12.0"
+                  styleClass="content-card">
+
+                <Label text="Monitored Folder"
+                       styleClass="section-title"/>
+
+                <Label fx:id="selectedFolderLabel"
+                       text="No folder selected"
+                       wrapText="true"
+                       styleClass="folder-path"/>
+
+                <HBox spacing="10.0">
+                    <Button text="Select Folder"
+                            onAction="#handleSelectFolder"
+                            styleClass="primary-button"/>
+
+                    <Button text="Scan Folder"
+                            onAction="#handleScanFolder"
+                            styleClass="scan-button"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12.0"
+                  styleClass="content-card"
+                  VBox.vgrow="ALWAYS">
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Recent Security Alerts"
+                           styleClass="section-title"/>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Button text="Clear Alerts"
+                            onAction="#handleClearAlerts"
+                            styleClass="secondary-button"/>
+                </HBox>
+
+                <ListView fx:id="alertsListView"
+                          prefHeight="220.0"
+                          VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar">
+            <padding>
+                <Insets top="12.0"
+                        right="25.0"
+                        bottom="12.0"
+                        left="25.0"/>
+            </padding>
+
+            <Label fx:id="statusLabel"
+                   text="Select a folder to begin monitoring."
+                   styleClass="status-text"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,142 @@
+.root-pane {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "Segoe UI";
+}
+
+.header {
+    -fx-background-color: linear-gradient(
+        to right,
+        #0f172a,
+        #1e3a5f
+    );
+}
+
+.application-title {
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.application-subtitle {
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 14px;
+}
+
+.metric-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 18px;
+    -fx-border-color: #dbe3ed;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(15, 23, 42, 0.08),
+        10,
+        0,
+        0,
+        3
+    );
+}
+
+.alert-card {
+    -fx-border-color: #f59e0b;
+}
+
+.metric-title {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.metric-value {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.metric-time {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.content-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 18px;
+    -fx-border-color: #dbe3ed;
+    -fx-border-radius: 10px;
+}
+
+.section-title {
+    -fx-text-fill: #0f172a;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.folder-path {
+    -fx-text-fill: #475569;
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: 6px;
+    -fx-padding: 9px 16px;
+    -fx-font-weight: bold;
+}
+
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.scan-button {
+    -fx-background-color: #059669;
+    -fx-text-fill: white;
+}
+
+.scan-button:hover {
+    -fx-background-color: #047857;
+}
+
+.secondary-button {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #334155;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #cbd5e1;
+}
+
+.list-view {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #dbe3ed;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.list-cell {
+    -fx-padding: 10px;
+    -fx-text-fill: #334155;
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e3a8a;
+}
+
+.status-bar {
+    -fx-background-color: #e2e8f0;
+}
+
+.status-text {
+    -fx-text-fill: #334155;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}

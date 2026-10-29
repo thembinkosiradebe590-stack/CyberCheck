@@ -151,7 +151,7 @@ SHA-256 identifies changes; it does not determine whether a file is malicious.
 | 3 | Build baseline creation and comparison | Complete |
 | 4 | Monitor folders and detect file changes | Complete |
 | 5 | Store folders, baselines, and events in SQLite | Complete |
-| 6 | Build the JavaFX dashboard and alerts | Planned |
+| 6 | Build the JavaFX dashboard and alerts | Complete |
 | 7 | Generate reports, test the application, and document it | Planned |
 
 ## OOP design
