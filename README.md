@@ -1,3 +1,4 @@
+Your verification code:WTC-CQBJCZDB
 # FileGuard
 
 FileGuard is an entry-level cybersecurity project written in Java. Its goal is to detect unexpected file changes by calculating and comparing SHA-256 hashes. A changed hash can indicate that a file was edited, replaced, or corrupted.

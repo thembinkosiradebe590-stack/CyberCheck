@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/CyberCheck.iml" filepath="$PROJECT_DIR$/.idea/CyberCheck.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fileguard.iml" filepath="$PROJECT_DIR$/fileguard.iml" />
     </modules>
   </component>
 </project>
